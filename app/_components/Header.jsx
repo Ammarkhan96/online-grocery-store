@@ -44,7 +44,7 @@ function Header() {
                                 process.env.NEXT_PUBLIC_BACKEND_BASE_URL+
                                 category?.attributes?.icon?.data?.attributes?.url} alt='icon'
                                 unoptimized={true}
-                            width={30} height={30} />
+                            width={20} height={20} />
                             <h2 className='text-md'>{category?.attributes?.name}</h2>
                          </DropdownMenuItem>
                         ))}
