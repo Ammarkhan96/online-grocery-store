@@ -8,6 +8,7 @@ import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, 
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import GlobalApi from '../_utils/GlobalApi'
+import Link from 'next/link'
 
 function Header() {
 
@@ -39,6 +40,7 @@ function Header() {
                         <DropdownMenuLabel>Browse Category</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         {catergoryList.map((category, index) => (
+                            <Link href={'/products-category/'+category.attributes.name}>
                          <DropdownMenuItem className="flex gap-3 items-center cursor-pointer">
                             <Image src={
                                 process.env.NEXT_PUBLIC_BACKEND_BASE_URL+
@@ -47,6 +49,7 @@ function Header() {
                             width={20} height={20} />
                             <h2 className='text-md'>{category?.attributes?.name}</h2>
                          </DropdownMenuItem>
+                         </Link>
                         ))}
 
                     </DropdownMenuContent>

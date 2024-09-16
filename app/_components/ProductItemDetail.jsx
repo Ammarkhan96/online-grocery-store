@@ -31,11 +31,13 @@ function ProductItemDetail({product}) {
       </div>
       <h2 className='font-medium text-lg'>Qauntity ({product.attributes.itemQuantityType})</h2>
       <div className='flex flex-col items-baseline gap-3'>
-        <div></div>
+        <div  className='flex gap-3 items-center'>
         <div className='p-2 border flex gap-10 items-center px-5'>
-            <button>-</button>
+            <button disabled={quantity==1} onClick={()=>setQuantity(quantity-1)}>-</button>
             <h2>{quantity}</h2>
-            <button>+</button>
+            <button onClick={()=>setQuantity(quantity+1)}>+</button>
+        </div>
+        <h2 className='text-2xl font-bold'>=Rs. {quantity*productTotalPrice}</h2>
         </div>
         <Button className='flex gap-3'>
             <ShoppingBasket />

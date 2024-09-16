@@ -19,10 +19,16 @@ const getSliders = () =>  axiosClient.get('/sliders?populate=*').then(resp => {
         return resp.data.data
     })
 
+    const getProductsByCategory = (category) => axiosClient.get('/products?filters[categories][name][$in]='
+    +category+'&populate=*').then(resp=> {
+        return resp.data.data
+    })
+
 
 export default {
     getCategory,
     getSliders,
     getCategoryList,
-    getAllProducts
+    getAllProducts,
+    getProductsByCategory
 }
