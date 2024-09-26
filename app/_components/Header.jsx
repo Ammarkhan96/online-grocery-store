@@ -12,7 +12,7 @@ import Link from 'next/link'
 
 function Header() {
 
-    const [catergoryList, setCategoryList] = useState([])
+    const [categoryList, setCategoryList] = useState([])
 
     useEffect(() => {
      getCategoryList()
@@ -28,18 +28,18 @@ function Header() {
     return (
         <div className='p-5 shadow-sm flex justify-between'>
             <div className='flex items-center gap-8'>
-                <Image src='/logo.png' alt='logo' width={150} height={100} />
-
+                <Image src='/logo.png' alt='logo' width={120} height={100} />
+             
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                     <h2 className='hidden md:flex gap-2 items-center border rounded-full p-2 px-10 
                 bg-slate-200 cursor-pointer'>
-                    <LayoutGrid className='h-5 w-5' /> Category</h2>
+                    <LayoutGrid className='h-5 w-5'/> Category</h2>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <DropdownMenuLabel>Browse Category</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        {catergoryList.map((category, index) => (
+                        {categoryList.map((category, index) => (
                             <Link href={'/products-category/'+category.attributes.name}>
                          <DropdownMenuItem className="flex gap-3 items-center cursor-pointer">
                             <Image src={

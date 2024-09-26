@@ -24,11 +24,18 @@ const getSliders = () =>  axiosClient.get('/sliders?populate=*').then(resp => {
         return resp.data.data
     })
 
+    const registerUser = (username, email, password) => axiosClient.post('/auth/local/register',{
+        username: username,
+        email: email,
+        password: password
+    })
+
 
 export default {
     getCategory,
     getSliders,
     getCategoryList,
     getAllProducts,
-    getProductsByCategory
+    getProductsByCategory,
+    registerUser
 }
