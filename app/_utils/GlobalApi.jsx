@@ -1,35 +1,33 @@
-const {default:axios} = require("axios")
+const { default: axios } = require("axios")
 
 const axiosClient = axios.create({
     baseURL: 'http://localhost:1337/api'
 })
 
-//(?populate=*) if we add this in url it will show the icons
-const getCategory=()=>axiosClient.get('/categories?populate=*')
+const getCategory = () => axiosClient.get('/categories?populate=*')
 
-const getSliders = () =>  axiosClient.get('/sliders?populate=*').then(resp => {
-       return resp.data.data
-    });
+const getSliders = () => axiosClient.get('/sliders?populate=*').then(resp => {
+    return resp.data.data
+});
 
-    const getCategoryList=()=>axiosClient.get('/categories?populate=*').then(resp=>{
+const getCategoryList = () => axiosClient.get('/categories?populate=*').then(resp => {
+    return resp.data.data
+})
+
+const getAllProducts = () => axiosClient.get('/products?populate=*').then(resp => {
+    return resp.data.data
+})
+
+const getProductsByCategory = (category) => axiosClient.get('/products?filters[categories][name][$in]='
+    + category + '&populate=*').then(resp => {
         return resp.data.data
     })
 
-    const getAllProducts = () => axiosClient.get('/products?populate=*').then(resp=>{
-        return resp.data.data
-    })
-
-    const getProductsByCategory = (category) => axiosClient.get('/products?filters[categories][name][$in]='
-    +category+'&populate=*').then(resp=> {
-        return resp.data.data
-    })
-
-    const registerUser = (username, email, password) => axiosClient.post('/auth/local/register',{
-        username: username,
-        email: email,
-        password: password
-    })
-
+const registerUser = (username, email, password) => axiosClient.post('/auth/local/register', {
+    username: username,
+    email: email,
+    password: password
+})
 
 export default {
     getCategory,

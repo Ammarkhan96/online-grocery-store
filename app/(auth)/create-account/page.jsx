@@ -19,7 +19,6 @@ function CreateAccount() {
 
     GlobalApi.registerUser(username, email, password).then((resp) => {
       console.log(resp.data.user);
-      console.log(resp.data.jwt);
     });
   };
 
@@ -30,13 +29,17 @@ function CreateAccount() {
         <Image src="/logo.png" width={200} height={200} alt="logo" />
         <h2 className="font-bold text-3xl">Create an Account</h2>
         <h2 className="text-gray-500">Enter your Email and Password to Create an account</h2>
+
         <div className="w-full flex flex-col gap-5 mt-7">
-          <Input placeholder="Username" value={username} 
+          <Input placeholder="Username" type='text' value={username} 
             onChange={(e) => setUsername(e.target.value)} />
-          <Input placeholder="name@example.com" value={email} 
+
+          <Input placeholder="name@example.com" type='email' value={email} 
           onChange={(e) => setEmail(e.target.value)} />
+
           <Input type="password" placeholder="Password" value={password} 
             onChange={(e) => setPassword(e.target.value)} />
+
           <Button onClick={() => onCreateAccount()} disabled={!(username && email && password)}>
             Create an Account</Button>
           <p> Already have an account

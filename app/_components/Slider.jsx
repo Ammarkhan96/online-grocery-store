@@ -7,8 +7,8 @@ function Slider({ sliderList }) {
     <Carousel>
       <CarouselContent>
         {sliderList.map((slider, index) => {
-          const imageUrl = slider?.attributes?.image?.data?.attributes?.url;
-          return (
+   const imageUrl = slider.attributes?.image?.data?.attributes?.url;
+return (
             imageUrl && (
               <CarouselItem key={index}>
                 <Image className='w-full h-[200px] md:h-[400px] object-cover rounded-2xl'
