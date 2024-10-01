@@ -5,25 +5,42 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 function CreateAccount() {
   const [username, setUsername] = useState(""); 
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
+  const [loader, setLoader] = useState()
+  const router = useRouter()
+
+  useEffect(() => {
+    const jwt = sessionStorage.getItem('jwt')
+    if(jwt){
+     router.push('/')
+    }
+ }, [])
 
   const onCreateAccount = () => {
-    console.log("Username:", username);
-    console.log("Email:", email);
-    console.log("Password:", password);
-
+    setLoader(true)
     GlobalApi.registerUser(username, email, password).then((resp) => {
       console.log(resp.data.user);
+      console.log(resp.data.jwt)
+      sessionStorage.setItem('user', JSON.stringify(resp.data.user))
+      sessionStorage.setItem('jwt', resp.data.jwt)
+      toast("Account Created Successfully.")
+      router.push('/')
+      setLoader(false)
+    },(e)=>{
+      toast(e?.response?.data?.error?.message)
+      setLoader(false)
     });
   };
 
   return (
-    <div className="flex items-baseline justify-center my-10">
+    <div className="flex items-baseline justify-center my-20">
       <div className="flex flex-col items-center justify-center p-10 bg-slate-100 border 
         border-gray-200">
         <Image src="/logo.png" width={200} height={200} alt="logo" />
@@ -41,7 +58,7 @@ function CreateAccount() {
             onChange={(e) => setPassword(e.target.value)} />
 
           <Button onClick={() => onCreateAccount()} disabled={!(username && email && password)}>
-            Create an Account</Button>
+          {loader?<LoaderIcon className='animate-spin' />:'Create an Account'}</Button>
           <p> Already have an account
             <Link href={"/sign-in"} className="text-blue-500">
               {" "}

@@ -29,11 +29,17 @@ const registerUser = (username, email, password) => axiosClient.post('/auth/loca
     password: password
 })
 
+const SignIn=(email,password) => axiosClient.post('/auth/local', {
+    identifier: email,
+    password: password
+})
+
 export default {
     getCategory,
     getSliders,
     getCategoryList,
     getAllProducts,
     getProductsByCategory,
-    registerUser
+    registerUser,
+    SignIn
 }
