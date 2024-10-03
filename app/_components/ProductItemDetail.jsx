@@ -3,9 +3,14 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ShoppingBasket } from 'lucide-react'
+import GlobalApi from '../_utils/GlobalApi'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
 
 function ProductItemDetail({product}) {
 
+   const jwt = sessionStorage.getItem('jwt')  
+   const user = JSON.parse(sessionStorage.getItem('user'))
     const [productTotalPrice, setProductTotalPrice] = useState(
         product.attributes.sellingPrice?
         product.attributes.sellingPrice:
@@ -13,6 +18,32 @@ function ProductItemDetail({product}) {
     )
 
     const [quantity, setQuantity] = useState(1)
+    const router = useRouter()
+
+    const addToCart = () => {
+    if(!jwt){
+        router.push('/sign-in')
+        return
+    }
+
+    const data ={
+      data: {
+         quantity: quantity,
+      amount:(quantity*productTotalPrice).toFixed(2),
+      product: product.id,
+      users_permissions_users: user.id
+      }
+      
+    }
+    console.log(data)
+    GlobalApi.addToCart(data,jwt).then(resp=>{
+      console.log(resp);
+      toast('Added to Cart')
+    }, (e)=>{
+      toast('Error while adding into cart')
+    })
+
+    }
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 p-7 bg-white text-black'>
@@ -39,7 +70,7 @@ function ProductItemDetail({product}) {
         </div>
         <h2 className='text-2xl font-bold'>=Rs. {quantity*productTotalPrice}</h2>
         </div>
-        <Button className='flex gap-3'>
+        <Button className='flex gap-3' onClick={()=>addToCart()}>
             <ShoppingBasket />
             Add To Cart
         </Button>

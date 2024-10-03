@@ -34,6 +34,14 @@ const SignIn=(email,password) => axiosClient.post('/auth/local', {
     password: password
 })
 
+
+const addToCart=(data,jwt)=>axiosClient.post('/user-carts', data, {
+    headers: {
+        Authorization: 'Bearer ' + jwt
+    }
+})
+
+
 export default {
     getCategory,
     getSliders,
@@ -41,5 +49,8 @@ export default {
     getAllProducts,
     getProductsByCategory,
     registerUser,
-    SignIn
+    SignIn,
+    SignIn, 
+    addToCart
+
 }
